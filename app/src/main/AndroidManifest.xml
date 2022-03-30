@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileFinalProject">
         <activity
+            android:name=".NewEvent"
+            android:exported="false" />
+        <activity
+            android:name=".ViewPlanner"
+            android:exported="false" />
+        <activity
+            android:name=".HomePage"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
