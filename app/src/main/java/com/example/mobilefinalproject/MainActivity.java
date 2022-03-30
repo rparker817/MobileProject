@@ -1,5 +1,6 @@
 package com.example.mobilefinalproject;
 
+//Test comment
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
