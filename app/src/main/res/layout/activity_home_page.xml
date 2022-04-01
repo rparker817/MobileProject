@@ -1,9 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".HomePage">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:contentDescription="background image"
+        android:scaleType="center"
+        tools:srcCompat="@drawable/blue_1634110_1280" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnCount="5"
+        app:rowCount="6">
+
+        <ImageView
+            android:id="@+id/Weather"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_column="0"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="6"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.5"
+            app:srcCompat="@drawable/sun_3000999_1280" />
+
+        <ImageView
+            android:id="@+id/loginIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_column="4"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="6"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.5"
+            app:srcCompat="@drawable/user_2935373_1280" />
+
+        <TextView
+            android:id="@+id/nextEventTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next Event 10:00AM"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            app:layout_column="0"
+            app:layout_columnSpan="5"
+            app:layout_columnWeight="5"
+            app:layout_row="1"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.1" />
+
+        <TextView
+            android:id="@+id/nextEventDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SODV2203 Meeting"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_column="0"
+            app:layout_columnSpan="5"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1" />
+
+        <Button
+            android:id="@+id/btnCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Calendar"
+            app:layout_column="1"
+            app:layout_columnSpan="3"
+            app:layout_columnWeight="5"
+            app:layout_row="3"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.1" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Entry"
+            app:layout_column="1"
+            app:layout_columnSpan="3"
+            app:layout_columnWeight="1"
+            app:layout_row="4"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.1" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_column="0"
+            app:layout_columnSpan="5"
+            app:layout_columnWeight="1"
+            app:layout_row="5"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1"
+            app:srcCompat="@drawable/bullet_2157465_1280" />
+
+    </androidx.gridlayout.widget.GridLayout>
+</RelativeLayout>
