@@ -15,7 +15,8 @@
         android:layout_marginBottom="0dp"
         android:contentDescription="background image"
         android:scaleType="center"
-        tools:srcCompat="@drawable/blue_1634110_1280" />
+        app:srcCompat="@drawable/blue_1634110_1280"
+        tools:src="@drawable/blue_1634110_1280" />
 
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
