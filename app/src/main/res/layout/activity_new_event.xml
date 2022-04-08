@@ -82,13 +82,14 @@
             android:layout_column="0"
             android:layout_columnSpan="5"
             android:layout_columnWeight="5"
+            android:layout_marginTop="10dp"
             android:paddingTop="15dp"
             android:text="Event Details"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="36sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/newEventText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,8 +99,12 @@
             android:layout_column="0"
             android:layout_columnSpan="5"
             android:layout_columnWeight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/white"
             android:paddingTop="15dp"
-            android:text="New Event Sample Text"
+            android:text="Enter the Details"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="24sp" />
