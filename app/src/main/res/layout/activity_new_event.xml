@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:scaleType="center"
+        app:srcCompat="@drawable/blue_1634110_1280"
         tools:srcCompat="@drawable/blue_1634110_1280" />
 
     <GridLayout

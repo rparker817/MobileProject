@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
     tools:context=".MainActivity">
 
     <ImageView
@@ -12,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:contentDescription="background image"
         android:scaleType="center"
+        app:srcCompat="@drawable/blue_1634110_1280"
         tools:srcCompat="@drawable/blue_1634110_1280" />
 
     <LinearLayout
@@ -49,6 +51,7 @@
             android:textSize="24sp" />
 
         <Button
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50sp"
