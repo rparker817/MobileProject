@@ -31,23 +31,27 @@
             app:srcCompat="@drawable/timeplanner" />
 
         <EditText
+            android:id="@+id/emailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
-            android:text="Username"
+            android:hint="Email"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="24sp" />
 
         <EditText
+            android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
-            android:text="Password"
+            android:hint="Password"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="24sp" />
 
         <Button
@@ -59,6 +63,16 @@
             android:layout_marginRight="50sp"
             android:text="Login"
             android:textSize="26sp" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="50sp"
+            android:layout_marginRight="80sp"
+            android:text="Register"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
