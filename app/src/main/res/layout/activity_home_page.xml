@@ -34,13 +34,28 @@
             app:layout_columnWeight="6"
             app:layout_row="0"
             app:layout_rowSpan="1"
-            app:layout_rowWeight="0.5"
-            app:srcCompat="@drawable/sun_3000999_1280" />
+            app:layout_rowWeight="0.5" />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_column="1"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="0.5" />
 
         <ImageView
             android:id="@+id/loginIcon"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:padding="30dp"
             android:scaleType="fitXY"
             app:layout_column="4"
             app:layout_columnSpan="1"
@@ -48,7 +63,7 @@
             app:layout_row="0"
             app:layout_rowSpan="1"
             app:layout_rowWeight="0.5"
-            app:srcCompat="@drawable/user_2935373_1280" />
+            app:srcCompat="@drawable/logout" />
 
         <TextView
             android:id="@+id/nextEventTime"

@@ -76,14 +76,15 @@
             android:id="@+id/imageView6"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
+            android:padding="30dp"
+            android:scaleType="centerInside"
             app:layout_column="4"
             app:layout_columnSpan="1"
             app:layout_columnWeight="2"
             app:layout_row="0"
             app:layout_rowSpan="1"
             app:layout_rowWeight="1"
-            app:srcCompat="@drawable/user_2935373_1280" />
+            app:srcCompat="@drawable/logout" />
 
     </androidx.gridlayout.widget.GridLayout>
 
