@@ -45,7 +45,6 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        Log.d("response", "£££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
         //Setting onClick Event on the Calendar button
         Button btnCalendar = (Button) findViewById(R.id.btnCalendar);
         btnCalendar.setOnClickListener(new View.OnClickListener() {

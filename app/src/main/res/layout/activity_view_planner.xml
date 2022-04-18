@@ -22,7 +22,7 @@
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="100dp"
         app:columnCount="5"
         app:rowCount="1">
 
@@ -48,7 +48,7 @@
             app:layout_columnWeight="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
-            app:layout_rowWeight="1" />
+            app:layout_rowWeight="0.5" />
 
         <TextView
             android:id="@+id/textView2"
@@ -59,7 +59,7 @@
             app:layout_columnWeight="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
-            app:layout_rowWeight="1" />
+            app:layout_rowWeight="0.5" />
 
         <TextView
             android:id="@+id/textView3"
@@ -70,7 +70,7 @@
             app:layout_columnWeight="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
-            app:layout_rowWeight="1" />
+            app:layout_rowWeight="0.5" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -83,282 +83,37 @@
             app:layout_columnWeight="2"
             app:layout_row="0"
             app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
+            app:layout_rowWeight="0.5"
             app:srcCompat="@drawable/logout" />
 
     </androidx.gridlayout.widget.GridLayout>
 
     <Button
-        android:id="@+id/button16"
+        android:id="@+id/dateSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="77dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="showDate"
         android:text="Select Date" />
 
     <ScrollView
         android:id="@+id/calendarView"
-        android:layout_width="297dp"
+        android:layout_width="325dp"
         android:layout_height="433dp"
-        android:layout_below="@+id/button16"
+        android:layout_below="@+id/dateSelect"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-20dp"
-        android:background="@color/white">
+        android:background="@color/material_on_primary_disabled"
+        android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:columnCount="2"
-                app:rowCount="10">
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="1"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="2"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="3"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="4"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="5"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="6"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="7"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="8"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="9"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8am"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="0"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="9am"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="1"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10am"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="2"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="11am"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="3"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="4"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="5"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="6"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="7"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="8"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5pm"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="0.2"
-                    app:layout_row="9"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"/>
-            </androidx.gridlayout.widget.GridLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -369,8 +124,9 @@
         android:layout_below="@+id/calendarView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp"
+        android:onClick="openHome"
         android:text="Back" />
 
 

@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80sp"
-            android:layout_marginTop="50sp"
+            android:layout_marginTop="10sp"
             android:layout_marginRight="80sp"
             android:text="Register"
             android:textSize="18sp" />
