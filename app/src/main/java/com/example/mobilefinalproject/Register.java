@@ -117,7 +117,7 @@ public class Register extends AppCompatActivity {
                         //If the task (creating a user) is successful
                         if(task.isSuccessful()) {
                             //Making an object of type users and storing the values in it
-                            Users users = new Users(fullName, email, age, password, database, event);
+                            Users users = new Users(fullName, email, age, password, database);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

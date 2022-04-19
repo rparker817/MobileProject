@@ -8,9 +8,12 @@ public class Users {
 
     public String fullName, email, age, password;
     public Database database;
-    public Database.Event event;
 
     public static class Database {
+
+        public String id;
+        public Event event;
+
 
         public static class Event{
 
@@ -30,15 +33,16 @@ public class Users {
             }
         }
 
-        public String id;
-
         public Database() {
 
         }
 
-        public Database(String id) {
+        public Database(String id, Event event) {
             this.id = id;
+            this.event = event;
         }
+
+
     }
 
     //Empty Constructor method
@@ -46,13 +50,11 @@ public class Users {
 
     }
 
-    public Users(String fullName, String email, String age, String password, Database database, Database.Event event) {
+    public Users(String fullName, String email, String age, String password, Database database) {
         this.fullName = fullName;
         this.email = email;
         this.age = age;
         this.password = password;
         this.database = database;
-        this.event = event;
-
     }
 }
