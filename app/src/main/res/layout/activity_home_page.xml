@@ -68,7 +68,7 @@
             android:id="@+id/nextEventTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next Event 10:00AM"
+            android:text="Next Event"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="34sp"
