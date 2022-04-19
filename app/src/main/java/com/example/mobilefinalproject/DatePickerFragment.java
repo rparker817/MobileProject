@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    String page = "view_planner";
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -27,7 +28,18 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        ViewPlanner activity = (ViewPlanner) getActivity();
-        activity.processDatePickerResult(year, month+1, day);
+
+        if(page.equals("view_planner"))
+        {
+            ViewPlanner activity = (ViewPlanner) getActivity();
+            activity.processDatePickerResult(year, month+1, day);
+        }
+        else
+        {
+            NewEvent activity1 = (NewEvent) getActivity();
+            activity1.processDatePickerResult(year, month+1, day);
+        }
+
+
     }
 }
