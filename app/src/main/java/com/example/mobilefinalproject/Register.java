@@ -57,11 +57,14 @@ public class Register extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
         String fullName = editFullName.getText().toString().trim();
-        String title = "testTitle";
-        String description = "description";
-        String date = "helloDate";
-        String time = "helloTime";
-        String stamp = "helloStamp";
+        Users.Database database = new Users.Database();
+        database.id = "1";
+        Users.Database.Event event = new Users.Database.Event();
+        event.title = "Cinema";
+        event.description = "Going to the Cinema";
+        event.date = "2022-04-19";
+        event.time = "18:00:00";
+        event.stamp = "2022-04-19 18:00:00";
 
 
         //Giving the user an error if the name field is empty
@@ -114,8 +117,7 @@ public class Register extends AppCompatActivity {
                         //If the task (creating a user) is successful
                         if(task.isSuccessful()) {
                             //Making an object of type users and storing the values in it
-                            Users users = new Users(fullName, email, age, password);
-                            Users.Database usersData = new Users.Database(title, description, date, time, stamp);
+                            Users users = new Users(fullName, email, age, password, database, event);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
