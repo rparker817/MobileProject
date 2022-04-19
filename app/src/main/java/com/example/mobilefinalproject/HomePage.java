@@ -2,12 +2,18 @@ package com.example.mobilefinalproject;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentContainerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +39,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class HomePage extends AppCompatActivity {
@@ -41,6 +50,9 @@ public class HomePage extends AppCompatActivity {
     DecimalFormat df = new DecimalFormat("#.#");
     ImageView imgView;
     Bitmap image;
+    ArrayList<data> eventArray=new ArrayList<>();
+    ConstraintLayout container;
+    SQLiteDatabase offlineDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +76,7 @@ public class HomePage extends AppCompatActivity {
         });
         imgView = findViewById(R.id.Weather);
         getWeatherDetails();
+        getDBData(1);
     }
     public void getWeatherDetails()
     {
@@ -117,6 +130,71 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, NewEvent.class);
         startActivity(intent);
     }
+
+    protected void getDBData(int id) {
+
+        offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
+
+        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+
+        Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ="+id, null);
+        Date d = new Date();
+        String curDate  = DateFormat.format("yyyy-MM-dd", d.getTime()).toString();
+
+        if (c.moveToFirst()) {
+            eventArray.clear();
+
+            do {
+                data event = new data();
+                event.id = c.getString(0);
+                event.title = c.getString(2);
+                event.description = c.getString(3);
+                event.date = c.getString(4);
+                event.time = c.getString(5);
+                event.stamp = c.getString(6);
+                eventArray.add(event);
+
+            } while (c.moveToNext());
+
+            offlineDb.close();
+            Collections.sort(eventArray);
+
+            for(int i = 0; i <eventArray.size();i++)
+            {
+                if(eventArray.get(i).date.compareTo(curDate)>=0)
+                {
+                    createEventEntry(eventArray.get(i).title,eventArray.get(i).description,eventArray.get(i).date,eventArray.get(i).time);
+                    break;
+                }
+            }
+        }
+
+
+    }
+
+    public void createEventEntry(String title,String description,String date, String time){
+        container = findViewById(R.id.nextEventDetails);
+        View view = getLayoutInflater().inflate(R.layout.event_card,null);
+        TextView dateTitle = view.findViewById(R.id.textView13);
+        dateTitle.setText(time+" "+date);
+        TextView eventTitle = view.findViewById(R.id.textView14);
+        eventTitle.setText(title);
+        TextView eventDescription = view.findViewById(R.id.textView15);
+        eventDescription.setText(description);
+        container.addView(view);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
 
     public void loadImage(View view,String iconurl)
     {

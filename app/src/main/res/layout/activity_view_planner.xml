@@ -93,11 +93,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@+id/btnAllEvents"
         android:onClick="showDate"
         android:text="Select Date" />
+
+    <Button
+        android:id="@+id/btnAllEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="106dp"
+        android:onClick="showAllEvents"
+        android:text="All Events" />
 
     <ScrollView
         android:id="@+id/calendarView"
