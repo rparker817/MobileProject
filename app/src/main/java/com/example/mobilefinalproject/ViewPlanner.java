@@ -127,13 +127,13 @@ public class ViewPlanner extends AppCompatActivity {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
         //offlineDb.execSQL("DROP TABLE events ");
-        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp ) VALUES (1,'Dinner','a nice time','2022-04-18','20:30','2022-04-18 20:30')");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
+        //offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+       // offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp ) VALUES (1,'Dinner','a nice time','2022-04-18','20:30','2022-04-18 20:30')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
+       // offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
         //SharedPreferences sharedPreferences = this.getSharedPreferences("com.mmurshed.top10_newsapi_news", Context.MODE_PRIVATE);
         //lastUpdated = sharedPreferences.getString("lastUpdated", "");
 
