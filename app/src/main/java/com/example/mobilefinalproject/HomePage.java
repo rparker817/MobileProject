@@ -27,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,10 +55,16 @@ public class HomePage extends AppCompatActivity {
     ArrayList<data> eventArray=new ArrayList<>();
     ConstraintLayout container;
     SQLiteDatabase offlineDb;
+
+    //private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        //mAuth = FirebaseAuth.getInstance();
+
         //Setting onClick Event on the Calendar button
         Button btnCalendar = (Button) findViewById(R.id.btnCalendar);
         btnCalendar.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +82,18 @@ public class HomePage extends AppCompatActivity {
                 newEvent();
             }
         });
+
+        /*
+        ImageView imgView = (ImageView) findViewById(R.id.loginIcon);
+        imgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+         */
+
+
         imgView = findViewById(R.id.Weather);
         getWeatherDetails();
         getDBData(1);
@@ -187,15 +207,6 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
     public void loadImage(View view,String iconurl)
     {
         HomePage.DownloadImage task=new HomePage.DownloadImage(this);
@@ -269,6 +280,24 @@ public class HomePage extends AppCompatActivity {
 
         }
     }
+
+
+    /*
+    public void logout() {
+        mAuth.signOut();
+        Toast.makeText(HomePage.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(HomePage.this, "No User is Signed in", Toast.LENGTH_LONG).show();
+        } else {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(HomePage.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
+        }
+    }
+    */
 
 
 }

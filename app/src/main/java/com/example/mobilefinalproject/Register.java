@@ -17,6 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Register extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -55,6 +57,12 @@ public class Register extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
         String fullName = editFullName.getText().toString().trim();
+        String title = "testTitle";
+        String description = "description";
+        String date = "helloDate";
+        String time = "helloTime";
+        String stamp = "helloStamp";
+
 
         //Giving the user an error if the name field is empty
         if(fullName.isEmpty()) {
@@ -107,6 +115,7 @@ public class Register extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             //Making an object of type users and storing the values in it
                             Users users = new Users(fullName, email, age, password);
+                            Users.Database usersData = new Users.Database(title, description, date, time, stamp);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
