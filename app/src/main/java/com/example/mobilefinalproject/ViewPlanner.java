@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class ViewPlanner extends AppCompatActivity {
@@ -37,7 +39,8 @@ public class ViewPlanner extends AppCompatActivity {
     LinearLayout linearLayout;
     ScrollView scrollView;
     ArrayList<data> eventArray=new ArrayList<>();
-
+    ArrayList<data> filterdArray = new ArrayList<>();
+    String datePicked;
 
     SQLiteDatabase offlineDb;
 
@@ -72,7 +75,7 @@ public class ViewPlanner extends AppCompatActivity {
         TextView eventDescription = view.findViewById(R.id.textView15);
         eventDescription.setText(description);
         linearLayout.addView(view);
-        //linearLayout.addView(card1);
+
 
 
     }
@@ -84,10 +87,32 @@ public class ViewPlanner extends AppCompatActivity {
     }
     public void processDatePickerResult(int year, int month,int day)
     {
-        String msg = Integer.toString(month)+"/"+Integer.toString(day)+"/"+Integer.toString(year);
-        Toast.makeText(this,"Date: " +msg,Toast.LENGTH_SHORT).show();
+        String formatted_month ="";
+        String formatted_day ="";
+        if(month <10)
+        {
+            formatted_month = "0" + Integer.toString(month);
+        }
+        else
+        {
+            formatted_month = Integer.toString(month);
+        }
+        if(day <10)
+        {
+                formatted_day = "0" + Integer.toString(day);
+        }
+        else
+        {
+            formatted_day = Integer.toString(day);
+        }
+        String msg = Integer.toString(year)+"-"+formatted_month+"-"+formatted_day;
+        //Toast.makeText(this,"Date: " +msg,Toast.LENGTH_SHORT).show();
         Button btn = findViewById(R.id.dateSelect);
         btn.setText(msg);
+        datePicked = msg;
+        Log.i("date picker: ",datePicked);
+        clear_events();
+        populate_filtered_events_list();
 
     }
 
@@ -102,11 +127,13 @@ public class ViewPlanner extends AppCompatActivity {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
         //offlineDb.execSQL("DROP TABLE events ");
-        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time VARCHAR)");
-       // offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time ) VALUES (1,'Dinner','a nice time','2022-04-18','8:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time ) VALUES (1,'Football','at the sports centre','2022-05-11','4:00')");
-       //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time ) VALUES (1,'Assignment 2','Complete a mobile app','2022-06-5','5:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time ) VALUES (1,'Get Bread','Safeway has a sale','2022-05-14','12:00')");
+        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp ) VALUES (1,'Dinner','a nice time','2022-04-18','20:30','2022-04-18 20:30')");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
         //SharedPreferences sharedPreferences = this.getSharedPreferences("com.mmurshed.top10_newsapi_news", Context.MODE_PRIVATE);
         //lastUpdated = sharedPreferences.getString("lastUpdated", "");
 
@@ -129,8 +156,6 @@ public class ViewPlanner extends AppCompatActivity {
             Log.i("Loading from: ","Web");
         //}else{
         Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ="+id, null);
-        int urlIndex = c.getColumnIndex("url");
-        int titleIndex = c.getColumnIndex("title");
 
 
         if (c.moveToFirst()) {
@@ -143,6 +168,7 @@ public class ViewPlanner extends AppCompatActivity {
                 event.description = c.getString(3);
                 event.date = c.getString(4);
                 event.time = c.getString(5);
+                event.stamp = c.getString(6);
                 eventArray.add(event);
 
             } while (c.moveToNext());
@@ -151,21 +177,61 @@ public class ViewPlanner extends AppCompatActivity {
                 Log.i("data element: ",eventArray.get(0).date);
             }
             offlineDb.close();
+            Collections.sort(eventArray);
         }
 
 
     }
-    public class data
+
+
+    public class data implements Comparable<data>
     {
         String id;
         String title;
         String description;
         String date;
         String time;
+        String stamp;
+
+        @Override
+        public int compareTo(data data) {
+
+            return stamp.compareTo(data.stamp);
+        }
     }
 
+    public void clear_events()
+        {
 
+            while (linearLayout.getChildCount() >0)
+            {
+                linearLayout.removeView(linearLayout.getChildAt(0));
+            }
+        }
 
+    public void populate_filtered_events_list()
+    {
+        filterdArray.clear();
+        for(int i = 0;i <eventArray.size();i++)
+        {
+            if(eventArray.get(i).date.compareTo(datePicked) ==0)
+            {
+                filterdArray.add(eventArray.get(i));
+            }
+        }
+        Collections.sort(filterdArray);
+        if(filterdArray.size()>0)
+        {
+            for(int i =0;i<filterdArray.size();i++)
+            {
+                createEventEntry(filterdArray.get(i).title,filterdArray.get(i).description,filterdArray.get(i).date,filterdArray.get(i).time);
+            }
 
+        }
+       else
+       {
+           createEventEntry("","","","No Events On This Date");
+       }
+    }
 
 }
