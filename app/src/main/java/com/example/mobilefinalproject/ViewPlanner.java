@@ -156,13 +156,6 @@ public class ViewPlanner extends AppCompatActivity {
     protected void getDBData(String id) {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
-        //offlineDb.execSQL("DROP TABLE events ");
-        //offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID String, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
 
         Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='"+id+"'", null);
 

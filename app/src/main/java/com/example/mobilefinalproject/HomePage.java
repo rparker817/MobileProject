@@ -70,7 +70,7 @@ public class HomePage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         current_user = mAuth.getCurrentUser().getUid();
         Log.d("user", current_user.toString());
-        //mAuth = FirebaseAuth.getInstance();
+
 
         //Setting onClick Event on the Calendar button
         Button btnCalendar = (Button) findViewById(R.id.btnCalendar);
@@ -92,6 +92,7 @@ public class HomePage extends AppCompatActivity {
 
         imgView = findViewById(R.id.Weather);
         getWeatherDetails();
+        checkDB();
         getDBData(current_user);
 
     }
@@ -148,91 +149,84 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void getDBData(String id) {
+
+    protected void checkDB() {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
+        //offlineDb.execSQL("DROP TABLE events ");
+        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID VARCHAR, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
 
-        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+        Cursor c = offlineDb.rawQuery("SELECT * FROM events", null);
+        Log.i("database: ", "calling function"+String.valueOf(c.getCount()));
+        Date d = new Date();
+        String curDate = DateFormat.format("yyyy-MM-dd", d.getTime()).toString();
 
-        Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='" + id + "'", null);
-        if (c.getCount() == 0) {
+        if (c.getCount() != 0) {
+
+        } else {
             Log.i("database: ", "Is empty");
-            offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID String, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
-            offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
+            //offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID VARCHAR, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+            offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Football','at the sports centre','2022-04-18','16:00','2022-04-18 16:00')");
             offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
             offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
             offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
             offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
-            Cursor cursor = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='" + id + "'", null);
 
-            Date d = new Date();
-            String curDate = DateFormat.format("yyyy-MM-dd", d.getTime()).toString();
-
-            if (cursor.moveToFirst()) {
-                eventArray.clear();
-
-                do {
-                    data event = new data();
-                    event.id = c.getString(0);
-                    event.title = c.getString(2);
-                    event.description = c.getString(3);
-                    event.date = c.getString(4);
-                    event.time = c.getString(5);
-                    event.stamp = c.getString(6);
-                    eventArray.add(event);
-
-                } while (cursor.moveToNext());
-
-                offlineDb.close();
-                Collections.sort(eventArray);
-
-                for (int i = 0; i < eventArray.size(); i++) {
-                    if (eventArray.get(i).date.compareTo(curDate) >= 0) {
-                        createEventEntry(eventArray.get(i).title, eventArray.get(i).description, eventArray.get(i).date, eventArray.get(i).time);
-                        break;
-                    }
-                }
-
-                //Cursor db = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='"+id+"'", null);
-                // offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Tennis','playing tennis tournament','2022-05-14','13:00','2022-05-11 16:00')");
-                //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
-                //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
-                //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
-                //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
-            } else {
-
-                if (c.moveToFirst()) {
-                    eventArray.clear();
-
-                    do {
-                        data event = new data();
-                        event.id = c.getString(0);
-                        event.title = c.getString(2);
-                        event.description = c.getString(3);
-                        event.date = c.getString(4);
-                        event.time = c.getString(5);
-                        event.stamp = c.getString(6);
-                        eventArray.add(event);
-
-                    } while (c.moveToNext());
-
-                    offlineDb.close();
-                    Collections.sort(eventArray);
-
-                    for (int i = 0; i < eventArray.size(); i++) {
-                        if (eventArray.get(i).date.compareTo(curDate) >= 0) {
-                            createEventEntry(eventArray.get(i).title, eventArray.get(i).description, eventArray.get(i).date, eventArray.get(i).time);
-                            break;
-                        }
-                    }
-                }
-
-            }
+            offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Tennis','playing tennis tournament','2022-05-17','13:00','2022-05-17 13:00')");
+            offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Friends Birthday','Get birthday present for friend','2022-05-05','14:30','2022-05-05 14:30')");
+            offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('rUjmDYeX4yMk4DcDHORaPwhRPOL2','Movie Night','Do not forget popcorn','2022-05-18','19:00','2022-05-18 19:00')");
 
 
         }
+        offlineDb.close();
+    }
+
+
+
+    protected void getDBData(String id) {
+
+        offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
+        //offlineDb.execSQL("DROP TABLE events ");
+        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID VARCHAR, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+
+        Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='" + id + "'", null);
+        Log.i("database: ", "calling function"+String.valueOf(c.getCount()));
+        Date d = new Date();
+        String curDate = DateFormat.format("yyyy-MM-dd", d.getTime()).toString();
+
+        Log.i("database: ", "Is Not empty");
+        if (c.moveToFirst()) {
+            eventArray.clear();
+
+            do {
+                data event = new data();
+                event.id = c.getString(0);
+                event.title = c.getString(2);
+                event.description = c.getString(3);
+                event.date = c.getString(4);
+                event.time = c.getString(5);
+                event.stamp = c.getString(6);
+                eventArray.add(event);
+
+            } while (c.moveToNext());
+
+
+            Collections.sort(eventArray);
+
+            for (int i = 0; i < eventArray.size(); i++) {
+                if (eventArray.get(i).date.compareTo(curDate) >= 0) {
+                    createEventEntry(eventArray.get(i).title, eventArray.get(i).description, eventArray.get(i).date, eventArray.get(i).time);
+                    break;
+                }
+            }
+
+        }
+        offlineDb.close();
+
+
     }
     public void createEventEntry(String title,String description,String date, String time){
+        Log.i("creating event: ", "entry");
         container = findViewById(R.id.nextEventDetails);
         View view = getLayoutInflater().inflate(R.layout.event_card,null);
         TextView dateTitle = view.findViewById(R.id.textView13);
