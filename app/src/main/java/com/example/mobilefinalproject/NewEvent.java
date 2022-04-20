@@ -37,13 +37,19 @@ public class NewEvent extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        Button btnAddEvent = (Button) findViewById(R.id.btnAddEvent);
+        btnAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createNewEvent(2);
+            }
+        });
+
         eventTitle = (EditText) findViewById(R.id.newEventTitle);
         eventDescription = (EditText) findViewById(R.id.newEventText);
         eventDate = (Button) findViewById(R.id.btnDate);
         eventTime = (Button) findViewById(R.id.btnTime);
 
-
-        createNewEvent(2);
 
         //Setting the time
         Button btnTime = (Button) findViewById(R.id.btnTime);
