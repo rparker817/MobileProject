@@ -90,17 +90,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        /*
-        ImageView imgView = (ImageView) findViewById(R.id.loginIcon);
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logout();
-            }
-        });
-         */
-
-
         imgView = findViewById(R.id.Weather);
         getWeatherDetails();
         getDBData(current_user);
@@ -272,6 +261,17 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    public void logout(View view) {
+        if(current_user != null) {
+            mAuth.signOut();
+            Toast.makeText(HomePage.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(HomePage.this, "No User is Signed in", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public static class DownloadImage extends AsyncTask<String, Void, Bitmap> {
         WeakReference<HomePage> homePageWeakReference;
         public DownloadImage(HomePage activity)
@@ -332,23 +332,5 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-
-    /*
-    public void logout() {
-        mAuth.signOut();
-        Toast.makeText(HomePage.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            Toast.makeText(HomePage.this, "No User is Signed in", Toast.LENGTH_LONG).show();
-        } else {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            Toast.makeText(HomePage.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
-        }
     }
-    */
 
-
-}

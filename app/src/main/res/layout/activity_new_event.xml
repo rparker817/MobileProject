@@ -36,6 +36,7 @@
 
         <ImageView
             android:id="@+id/profile"
+            android:onClick="logout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="0"

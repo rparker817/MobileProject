@@ -142,4 +142,15 @@ public class NewEvent extends AppCompatActivity {
         Log.i("Time ", eTime);
         Log.i("Stamp ", eStamp);
     }
+
+    public void logout(View view) {
+        if(current_user != null) {
+            mAuth.signOut();
+            Toast.makeText(NewEvent.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(NewEvent.this, "No User is Signed in", Toast.LENGTH_LONG).show();
+        }
+    }
 }

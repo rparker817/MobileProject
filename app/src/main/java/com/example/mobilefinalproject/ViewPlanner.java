@@ -257,4 +257,15 @@ public class ViewPlanner extends AppCompatActivity {
 
 
     }
+
+    public void logout(View view) {
+        if(current_user != null) {
+            mAuth.signOut();
+            Toast.makeText(ViewPlanner.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(ViewPlanner.this, "No User is Signed in", Toast.LENGTH_LONG).show();
+        }
+    }
 }
