@@ -10,7 +10,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -19,20 +22,43 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class ViewPlanner extends AppCompatActivity {
+    String url ="https://api.openweathermap.org/data/2.5/weather?q=calgary,canada&appid=4e4161f8965e59803b6da6aa1cfd96bd";
+    DecimalFormat df = new DecimalFormat("#.#");
+    ImageView imgView;
+    Bitmap image;
     Context context;
     LinearLayout.LayoutParams layoutparams;
     LinearLayout linearLayout;
@@ -77,7 +103,8 @@ public class ViewPlanner extends AppCompatActivity {
             getDBData(current_user);
             showAllEvents();
         }
-
+        imgView = findViewById(R.id.Weather);
+        getWeatherDetails();
 
     }
 
@@ -238,18 +265,18 @@ public class ViewPlanner extends AppCompatActivity {
     }
 
     //saves all variables which can be reloaded in the on create function if the screen is rotated.
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+   // @Override
+    //public void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
 
-            outState.putString(getString(R.string.saved_date), datePicked);
+            //outState.putString(getString(R.string.saved_date), datePicked);
 
 
             //outState.putString(getString(R.string.saved_date), "");
 
 
 
-    }
+    //}
 
     public void logout(View view) {
         if(current_user != null) {
@@ -259,6 +286,118 @@ public class ViewPlanner extends AppCompatActivity {
             startActivity(intent);
         } else {
             Toast.makeText(ViewPlanner.this, "No User is Signed in", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void getWeatherDetails()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Log.d("response", response);
+                String output = "";
+                try {
+                    JSONObject jsonresponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonresponse.getJSONArray("weather");
+                    JSONObject jsonObjectWeather = jsonArray.getJSONObject(0);
+                    String description = jsonObjectWeather.getString("description");
+                    JSONObject jsonObjectMain = jsonresponse.getJSONObject("main");
+                    Double temp = jsonObjectMain.getDouble("temp") -273.15;
+                    TextView temperature = findViewById(R.id.temperature);
+                    temperature.setText(df.format(temp)+" C");
+                    HttpURLConnection urlConnection;
+                    InputStream is;
+                    String icon = jsonObjectWeather.getString("icon");
+                    Log.d("response", icon);
+                    String iconUrl = "https://openweathermap.org/img/w/"+icon+".png";
+                    loadImage(imgView, iconUrl);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+    public void loadImage(View view,String iconurl)
+    {
+        DownloadImage task=new DownloadImage(this);
+        Bitmap downloadedImage;
+        try {
+            downloadedImage=task.execute(iconurl).get();
+            imgView.setImageBitmap(downloadedImage);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        WeakReference<ViewPlanner> homePageWeakReference;
+        public DownloadImage(ViewPlanner activity)
+        {
+            homePageWeakReference =  new WeakReference<>(activity);
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            ViewPlanner activity = homePageWeakReference.get();
+            if(activity == null || activity.isFinishing())
+                return;
+
+            //activity.image_load_bar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            ViewPlanner activity = homePageWeakReference.get();
+            if(activity == null || activity.isFinishing())
+                return null;
+            URL url;
+            HttpURLConnection urlConnection;
+            InputStream is;
+
+            try {
+                url=new URL(urls[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                is=urlConnection.getInputStream();
+                activity.image= BitmapFactory.decodeStream(is);
+                return activity.image;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            publishProgress();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            ViewPlanner activity = homePageWeakReference.get();
+            if(activity == null || activity.isFinishing())
+                return;
+
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            ViewPlanner activity = homePageWeakReference.get();
+            if(activity == null || activity.isFinishing())
+                return;
+
         }
     }
 }

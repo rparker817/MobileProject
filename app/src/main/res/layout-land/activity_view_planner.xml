@@ -13,47 +13,40 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="-3dp"
         android:layout_marginTop="-5dp"
         android:layout_marginEnd="1dp"
         android:scaleType="center"
         app:srcCompat="@drawable/blue_1634110_1280" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/Weather"
+        android:layout_width="100dp"
         android:layout_height="100dp"
-        app:columnCount="5"
-        app:rowCount="1">
+        android:layout_alignParentStart="true"
 
-        <ImageView
-            android:id="@+id/Weather"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            app:layout_column="0"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
-            app:srcCompat="@drawable/sun_3000999_1280" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/sun_3000999_1280" />
 
-        <TextView
-            android:id="@+id/temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            app:layout_column="1"
-            app:layout_columnSpan="3"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="0.5" />
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/Weather"
+        android:text="text"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <TextView
+    <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,34 +68,36 @@
             app:layout_rowSpan="1"
             app:layout_rowWeight="0.5" />
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:onClick="logout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="30dp"
-            android:scaleType="centerInside"
-            app:layout_column="4"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="2"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="0.5"
-            app:srcCompat="@drawable/logout" />
 
-    </androidx.gridlayout.widget.GridLayout>
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="7dp"
+        android:onClick="logout"
+        android:padding="30dp"
+        android:scaleType="centerInside"
+        app:layout_column="4"
+        app:layout_columnSpan="1"
+        app:layout_columnWeight="2"
+        app:layout_row="0"
+        app:layout_rowSpan="1"
+        app:layout_rowWeight="0.5"
+        app:srcCompat="@drawable/logout" />
 
     <Button
         android:id="@+id/dateSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btnAllEvents"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginTop="26dp"
         android:layout_marginBottom="20dp"
-        android:layout_toEndOf="@+id/btnAllEvents"
         android:onClick="showDate"
         android:text="Select Date" />
 
@@ -121,18 +116,16 @@
         android:id="@+id/calendarView"
         android:layout_width="325dp"
         android:layout_height="433dp"
-        android:layout_below="@+id/dateSelect"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="129dp"
         android:background="@color/material_on_primary_disabled"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
         </LinearLayout>
     </ScrollView>

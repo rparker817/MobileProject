@@ -52,7 +52,6 @@ import java.util.concurrent.ExecutionException;
 
 public class HomePage extends AppCompatActivity {
     String url ="https://api.openweathermap.org/data/2.5/weather?q=calgary,canada&appid=4e4161f8965e59803b6da6aa1cfd96bd";
-    String appId ="4e4161f8965e59803b6da6aa1cfd96bd";
     DecimalFormat df = new DecimalFormat("#.#");
     ImageView imgView;
     Bitmap image;
@@ -67,6 +66,7 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
         mAuth = FirebaseAuth.getInstance();
         current_user = mAuth.getCurrentUser().getUid();
         Log.d("user", current_user.toString());
