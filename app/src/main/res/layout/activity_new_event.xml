@@ -75,7 +75,7 @@
             android:text="Pick Time"
             android:textColor="@color/white" />
 
-        <TextView
+        <EditText
             android:id="@+id/newEventTitle"
             android:layout_width="wrap_content"
             android:layout_height="54dp"
@@ -85,12 +85,16 @@
             android:layout_column="0"
             android:layout_columnSpan="5"
             android:layout_columnWeight="5"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:hint="Event Title"
             android:paddingTop="15dp"
-            android:text="Event Details"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="36sp" />
+            android:textColorHint="@color/white"
+            android:textSize="34sp" />
 
         <EditText
             android:id="@+id/newEventText"
@@ -106,7 +110,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"
             android:backgroundTint="@color/white"
-            android:hint="Enter the details"
+            android:hint="Event details"
             android:paddingTop="15dp"
             android:textAlignment="center"
             android:textColor="@color/white"

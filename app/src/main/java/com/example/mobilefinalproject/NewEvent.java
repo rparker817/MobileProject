@@ -4,20 +4,51 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 public class NewEvent extends AppCompatActivity {
     String datePicked = "";
+    int hour, minute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
-       //add an up button to the action bar
+
+        //add an up button to the action bar
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+        //Setting the time
+        Button btnTime = (Button) findViewById(R.id.btnTime);
+        btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(NewEvent.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int currentMinute) {
+                                hour = hourOfDay;
+                                minute = currentMinute;
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(0, 0, 0, hour, minute);
+                                btnTime.setText(DateFormat.format("hh:mm aa", calendar));
+                            }
+                        }, 12, 0, false
+                );
+                timePickerDialog.updateTime(hour, minute);
+                timePickerDialog.show();
+            }
+        });
     }
 
     public void showDate(View view)
@@ -54,5 +85,4 @@ public class NewEvent extends AppCompatActivity {
         Log.i("date picker: ",datePicked);
 
     }
-
 }
