@@ -209,17 +209,27 @@ public class HomePage extends AppCompatActivity {
                 eventArray.add(event);
 
             } while (c.moveToNext());
-
+            Log.i("database: ", String.valueOf(eventArray.size()));
 
             Collections.sort(eventArray);
-
+            Boolean future_event = false;
             for (int i = 0; i < eventArray.size(); i++) {
                 if (eventArray.get(i).date.compareTo(curDate) >= 0) {
                     createEventEntry(eventArray.get(i).title, eventArray.get(i).description, eventArray.get(i).date, eventArray.get(i).time);
+                    future_event = true;
                     break;
                 }
+
+            }
+            if(!future_event)
+            {
+                createEventEntry("","" , "No Future Events", "");
             }
 
+        }
+        if(eventArray.size() ==0)
+        {
+            createEventEntry("","" , "No Events Created Yet", "");
         }
         offlineDb.close();
 
