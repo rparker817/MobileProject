@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -130,10 +132,14 @@ public class NewEvent extends AppCompatActivity {
         offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) " +
                 "VALUES ('"+id+"', '"+eTitle+"','"+eDescription+"','"+eDate+"','"+eTime+"','"+eStamp+"')");
 
+        Toast.makeText(NewEvent.this, "Event added successfully!", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
+
         Log.i("Title ", eTitle);
-        Log.i("Title ", eDescription);
-        Log.i("Title ", eDate);
-        Log.i("Title ", eTime);
-        Log.i("Title ", eStamp);
+        Log.i("Description ", eDescription);
+        Log.i("Date ", eDate);
+        Log.i("Time ", eTime);
+        Log.i("Stamp ", eStamp);
     }
 }
