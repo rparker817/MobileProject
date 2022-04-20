@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -27,11 +29,16 @@ public class NewEvent extends AppCompatActivity {
     Button eventDate, eventTime;
 
     SQLiteDatabase offlineDb;
+    private FirebaseAuth mAuth;
+    private String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
+
+        mAuth = FirebaseAuth.getInstance();
+        current_user = mAuth.getCurrentUser().getUid();
 
         //add an up button to the action bar
         ActionBar ab = getSupportActionBar();
@@ -41,7 +48,7 @@ public class NewEvent extends AppCompatActivity {
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewEvent(2);
+                createNewEvent(current_user);
             }
         });
 
@@ -110,7 +117,7 @@ public class NewEvent extends AppCompatActivity {
 
     }
 
-    public void createNewEvent(int id) {
+    public void createNewEvent(String id) {
         String eTitle = eventTitle.getText().toString();
         String eDescription = eventDescription.getText().toString();
         String eDate = eventDate.getText().toString();
@@ -119,8 +126,9 @@ public class NewEvent extends AppCompatActivity {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
 
-        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
-        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (2, '"+eTitle+"','"+eDescription+"','"+eDate+"','"+eTime+"','"+eStamp+"')");
+        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID String, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+        offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) " +
+                "VALUES ('"+id+"', '"+eTitle+"','"+eDescription+"','"+eDate+"','"+eTime+"','"+eStamp+"')");
 
         Log.i("Title ", eTitle);
         Log.i("Title ", eDescription);

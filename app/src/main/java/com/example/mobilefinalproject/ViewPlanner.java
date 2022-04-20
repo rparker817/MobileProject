@@ -24,6 +24,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,12 +42,18 @@ public class ViewPlanner extends AppCompatActivity {
     String datePicked ="";
 
     SQLiteDatabase offlineDb;
-
+    private FirebaseAuth mAuth;
+    private String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_planner);
+
+        //get instance of firebaseauth then get the current user as a string
+        mAuth = FirebaseAuth.getInstance();
+        current_user = mAuth.getCurrentUser().getUid();
+
 
         //add an up button to the action bar
         ActionBar ab = getSupportActionBar();
@@ -58,7 +66,7 @@ public class ViewPlanner extends AppCompatActivity {
         if (savedInstanceState !=null)
         {
 
-            getDBData(1);
+            getDBData(current_user);
            // Button btn = findViewById(R.id.dateSelect);
             datePicked = savedInstanceState.getString("saved_date");
             //btn.setText(datePicked);
@@ -66,7 +74,7 @@ public class ViewPlanner extends AppCompatActivity {
         }
         else
         {
-            getDBData(1);
+            getDBData(current_user);
             showAllEvents();
         }
 
@@ -145,18 +153,18 @@ public class ViewPlanner extends AppCompatActivity {
     }
 
 
-    protected void getDBData(int id) {
+    protected void getDBData(String id) {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
         //offlineDb.execSQL("DROP TABLE events ");
-        offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID INTEGER, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
-        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES (1,'Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
+        //offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID String, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Football','at the sports centre','2022-05-11','16:00','2022-05-11 16:00')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Assignment 2','Complete a mobile app','2022-06-5','17:30','2022-06-5 17:30')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Get Bread','Safeway has a sale','2022-05-14','12:00','2022-05-14 12:00')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Work Event','Do not forget the presentation!','2022-04-28','19:30','2022-04-28 19:30')");
+        //offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) VALUES ('qy6qeyYU8LadUrn4Lcq43dvhbqr1','Suit Pick Up','I need to get a suit for the event tonight','2022-04-28','10:30','2022-04-28 10:30')");
 
-        Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ="+id, null);
+        Cursor c = offlineDb.rawQuery("SELECT * FROM events WHERE userID ='"+id+"'", null);
 
 
         if (c.moveToFirst()) {
