@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".HomePage">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:contentDescription="background image"
+        android:scaleType="center"
+        app:srcCompat="@drawable/blue_1634110_1280"
+        tools:src="@drawable/blue_1634110_1280" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="Next Event"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/Weather"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        app:layout_column="0"
+        app:layout_columnSpan="1"
+        app:layout_columnWeight="1"
+        app:layout_row="0"
+        app:layout_rowSpan="1"
+        app:layout_rowWeight="1" />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+   />
+
+    <ImageView
+        android:id="@+id/loginIcon"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="logout"
+        android:paddingLeft="5dp"
+        android:paddingTop="20dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="20dp"
+        android:scaleType="fitXY"
+        app:layout_column="4"
+        app:layout_columnSpan="1"
+        app:layout_columnWeight="1"
+        app:layout_row="0"
+        app:layout_rowSpan="1"
+        app:layout_rowWeight="1"
+        app:srcCompat="@drawable/logout" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nextEventDetails"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="205dp"
+        android:layout_marginBottom="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnNewEvent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:text="View Calendar"
+        app:layout_column="1"
+        app:layout_columnSpan="3"
+        app:layout_columnWeight="5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_row="3"
+        app:layout_rowSpan="1"
+        app:layout_rowWeight="0.1" />
+
+    <Button
+        android:id="@+id/btnNewEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="9dp"
+        android:text="New Entry"
+        app:layout_column="1"
+        app:layout_columnSpan="3"
+        app:layout_columnWeight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_row="4"
+        app:layout_rowSpan="1"
+        app:layout_rowWeight="0.1" />
+
+    <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_column="0"
+            app:layout_columnSpan="5"
+            app:layout_columnWeight="1"
+            app:layout_row="5"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1"
+            app:srcCompat="@drawable/bullet_2157465_1280" />
+
+
+</RelativeLayout>

@@ -16,16 +16,15 @@
         tools:srcCompat="@drawable/blue_1634110_1280" />
 
 
-
-        <ImageView
-            android:id="@+id/weather"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_rowWeight="0.5"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/sun_3000999_1280" />
+    <ImageView
+        android:id="@+id/weather"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_rowWeight="0.5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        />
 
     <ImageView
         android:id="@+id/profile"

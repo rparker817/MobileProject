@@ -50,7 +50,7 @@ public class NewEvent extends AppCompatActivity {
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewEvent(current_user);
+                formCheck();
             }
         });
 
@@ -58,7 +58,11 @@ public class NewEvent extends AppCompatActivity {
         eventDescription = (EditText) findViewById(R.id.newEventText);
         eventDate = (Button) findViewById(R.id.btnDate);
         eventTime = (Button) findViewById(R.id.btnTime);
-
+        if(savedInstanceState!=null)
+        {
+            eventDate.setText(savedInstanceState.getString("savedDate"));
+            eventTime.setText(savedInstanceState.getString("savedTime"));
+        }
 
         //Setting the time
         Button btnTime = (Button) findViewById(R.id.btnTime);
@@ -119,6 +123,32 @@ public class NewEvent extends AppCompatActivity {
 
     }
 
+    public void formCheck()
+    {
+        String eTitle = eventTitle.getText().toString();
+
+        String eDate = eventDate.getText().toString();
+        String eTime = eventTime.getText().toString();
+        String eStamp = eDate + " " + eTime;
+
+        if(eTitle.equals("") || eTitle.equals("Event Title"))
+        {
+            Toast.makeText(NewEvent.this, "Please add a title", Toast.LENGTH_LONG).show();
+        }
+        else if(eDate.equals("") || eDate.equals("Pick Date"))
+        {
+            Toast.makeText(NewEvent.this, "Please pick a date", Toast.LENGTH_LONG).show();
+        }
+        else if(eTime.equals("") || eTime.equals("Pick Time"))
+        {
+            Toast.makeText(NewEvent.this, "Please pick a Time", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            createNewEvent(current_user);
+        }
+    }
+
     public void createNewEvent(String id) {
         String eTitle = eventTitle.getText().toString();
         String eDescription = eventDescription.getText().toString();
@@ -152,5 +182,18 @@ public class NewEvent extends AppCompatActivity {
         } else {
             Toast.makeText(NewEvent.this, "No User is Signed in", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String eTitle = eventTitle.getText().toString();
+        String eDescription = eventDescription.getText().toString();
+        String eDate = eventDate.getText().toString();
+        String eTime = eventTime.getText().toString();
+        //outState.putString("savedTitle", eTitle);
+        outState.putString("savedTime", eTime);
+        outState.putString("savedDate", eDate);
+
     }
 }

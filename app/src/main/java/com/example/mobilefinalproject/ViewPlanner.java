@@ -92,11 +92,20 @@ public class ViewPlanner extends AppCompatActivity {
         if (savedInstanceState !=null)
         {
 
+
+            Button btn = findViewById(R.id.dateSelect);
+            btn.setText(savedInstanceState.getString("savedDate"));
+            datePicked = savedInstanceState.getString("savedDate");
             getDBData(current_user);
-           // Button btn = findViewById(R.id.dateSelect);
-            datePicked = savedInstanceState.getString("saved_date");
             //btn.setText(datePicked);
-            populate_filtered_events_list();
+            if(!savedInstanceState.getString("savedDate").equals("Select Date"))
+            {
+                populate_filtered_events_list();
+            }
+            else
+            {
+                showAllEvents();
+            }
         }
         else
         {
@@ -265,18 +274,18 @@ public class ViewPlanner extends AppCompatActivity {
     }
 
     //saves all variables which can be reloaded in the on create function if the screen is rotated.
-   // @Override
-    //public void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
-
-            //outState.putString(getString(R.string.saved_date), datePicked);
+   @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
 
-            //outState.putString(getString(R.string.saved_date), "");
+       Button btn = findViewById(R.id.dateSelect);
+       String savedDate = btn.getText().toString();
+       outState.putString("savedDate", savedDate);
 
 
 
-    //}
+    }
 
     public void logout(View view) {
         if(current_user != null) {

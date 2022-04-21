@@ -32,7 +32,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="6"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/sun_3000999_1280" />
+           />
 
         <ImageView
             android:id="@+id/profile"
