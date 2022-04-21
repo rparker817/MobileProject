@@ -24,13 +24,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewEvent extends AppCompatActivity {
+    //Variables to pick the time
     String datePicked = "";
     int hour, minute;
 
+    //Making the variables for the input that the user would enter
     EditText eventTitle, eventDescription;
     Button eventDate, eventTime;
 
+    //Database variable
     SQLiteDatabase offlineDb;
+
+    //Variables for firebase
     private FirebaseAuth mAuth;
     private String current_user;
 
@@ -39,13 +44,16 @@ public class NewEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
 
+        //Getting the firebase instance
         mAuth = FirebaseAuth.getInstance();
+        //Getting the current user's ID
         current_user = mAuth.getCurrentUser().getUid();
 
         //add an up button to the action bar
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        //On click event for the add event button
         Button btnAddEvent = (Button) findViewById(R.id.btnAddEvent);
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +62,7 @@ public class NewEvent extends AppCompatActivity {
             }
         });
 
+        //Assigning the variables created above to the text fields using their ID
         eventTitle = (EditText) findViewById(R.id.newEventTitle);
         eventDescription = (EditText) findViewById(R.id.newEventText);
         eventDate = (Button) findViewById(R.id.btnDate);
@@ -69,6 +78,7 @@ public class NewEvent extends AppCompatActivity {
         btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Creating a new TimePickerDialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(NewEvent.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -88,6 +98,7 @@ public class NewEvent extends AppCompatActivity {
         });
     }
 
+    //Method to show the date
     public void showDate(View view)
     {
         DialogFragment newFragment = new DatePickerFragment();
@@ -123,6 +134,7 @@ public class NewEvent extends AppCompatActivity {
 
     }
 
+    //Method to check if the fields entered in the input boxes is valid or not
     public void formCheck()
     {
         String eTitle = eventTitle.getText().toString();
@@ -149,22 +161,29 @@ public class NewEvent extends AppCompatActivity {
         }
     }
 
+    //Method to create a new event
     public void createNewEvent(String id) {
+        //Getting the text input and storing it as a String
         String eTitle = eventTitle.getText().toString();
         String eDescription = eventDescription.getText().toString();
         String eDate = eventDate.getText().toString();
         String eTime = eventTime.getText().toString();
         String eStamp = eDate + " " + eTime;
 
+        //Creating a new database or opening the one with if already created
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
 
+        //Creating the table
         offlineDb.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, userID String, title VARCHAR, description VARCHAR, date DATE, time TIME,stamp DATETIME)");
+        //Inserting the valeus in the table
         offlineDb.execSQL("INSERT INTO events (userID, title, description , date,time,stamp  ) " +
                 "VALUES ('"+id+"', '"+eTitle+"','"+eDescription+"','"+eDate+"','"+eTime+"','"+eStamp+"')");
 
+        //Displaying a message if the event is created and then moving to the HomePage
         Toast.makeText(NewEvent.this, "Event added successfully!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
+
 
         Log.i("Title ", eTitle);
         Log.i("Description ", eDescription);
@@ -173,8 +192,11 @@ public class NewEvent extends AppCompatActivity {
         Log.i("Stamp ", eStamp);
     }
 
+    //Method to Logout
     public void logout(View view) {
+        //Checking if a user is currently signed in
         if(current_user != null) {
+            //Signing out the user, displaying the message and going back to the login page
             mAuth.signOut();
             Toast.makeText(NewEvent.this, "User Signed Out successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);

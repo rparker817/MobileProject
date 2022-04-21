@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Getting the firebase instance
         mAuth = FirebaseAuth.getInstance();
 
         //Setting onClick Event on the Login Button
