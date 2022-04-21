@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -66,7 +68,7 @@ public class ViewPlanner extends AppCompatActivity {
     ArrayList<data> eventArray=new ArrayList<>();
     ArrayList<data> filterdArray = new ArrayList<>();
     String datePicked ="";
-
+    int animStartDelay = 0;
     SQLiteDatabase offlineDb;
     private FirebaseAuth mAuth;
     private String current_user;
@@ -141,6 +143,18 @@ public class ViewPlanner extends AppCompatActivity {
         TextView eventDescription = view.findViewById(R.id.textView15);
         eventDescription.setText(description);
         linearLayout.addView(view);
+        //ObjectAnimator animator = null;
+        //ObjectAnimator animator2 = null;
+        view.setAlpha(0f);
+        view.setScaleX(0.0f);
+        view.setScaleY(0.0f);
+        view.animate()
+                .alpha(1.0f)
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .setDuration(1200)
+                .setStartDelay(animStartDelay);
+        animStartDelay  +=200;
 
 
 
@@ -225,6 +239,7 @@ public class ViewPlanner extends AppCompatActivity {
         clear_events();
         Date d = new Date();
         String curDate  = DateFormat.format("yyyy-MM-dd", d.getTime()).toString();
+        animStartDelay = 0;
         for(int i = 0;i<eventArray.size();i++)
         {
             if(eventArray.get(i).date.compareTo(curDate)>=0)
@@ -259,6 +274,7 @@ public class ViewPlanner extends AppCompatActivity {
             }
         }
         Collections.sort(filterdArray);
+        animStartDelay = 0;
         if(filterdArray.size()>0)
         {
             for(int i =0;i<filterdArray.size();i++)
