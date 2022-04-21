@@ -104,7 +104,7 @@
         android:layout_marginBottom="20dp"
         android:layout_toEndOf="@+id/btnAllEvents"
         android:onClick="showDate"
-        android:text="Select Date" />
+        android:text="@string/select_date" />
 
     <Button
         android:id="@+id/btnAllEvents"
@@ -115,7 +115,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="106dp"
         android:onClick="showAllEvents"
-        android:text="All Events" />
+        android:text="@string/all_events" />
 
     <ScrollView
         android:id="@+id/calendarView"
@@ -137,17 +137,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp"
-        android:onClick="openHome"
-        android:text="Back" />
 
 
 </RelativeLayout>

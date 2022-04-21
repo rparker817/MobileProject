@@ -44,7 +44,7 @@
             android:layout_marginTop="120dp"
             android:layout_marginLeft="30dp"
             android:onClick="showDate"
-            android:text="Pick Date"
+            android:text="@string/pick_date"
             android:textColor="@color/white" />
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="200dp"
             android:layout_columnWeight="1"
-            android:text="Pick Time"
+            android:text="@string/pick_time"
             android:textColor="@color/white" />
 
     <EditText
@@ -66,7 +66,7 @@
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@id/profile"
         android:backgroundTint="@color/white"
-        android:hint="Event Title"
+        android:hint="@string/event_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -82,7 +82,7 @@
         android:layout_marginBottom="30dp"
         android:layout_toLeftOf="@id/profile"
         android:backgroundTint="@color/white"
-        android:hint="Event details"
+        android:hint="@string/event_details"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -95,7 +95,7 @@
             android:layout_marginRight="120dp"
             android:layout_toLeftOf="@id/profile"
             android:layout_marginTop="250dp"
-            android:text="Add New Event"
+            android:text="@string/add_new_event"
             android:textColor="@color/white" />
 
 </RelativeLayout>

@@ -67,6 +67,7 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        //get instance of firebaseauth then get the current user as a string
         mAuth = FirebaseAuth.getInstance();
         current_user = mAuth.getCurrentUser().getUid();
         Log.d("user", current_user.toString());
@@ -96,6 +97,9 @@ public class HomePage extends AppCompatActivity {
         getDBData(current_user);
 
     }
+
+
+    // fetch the current weather using Openweather API
     public void getWeatherDetails()
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -107,13 +111,10 @@ public class HomePage extends AppCompatActivity {
                     JSONObject jsonresponse = new JSONObject(response);
                     JSONArray jsonArray = jsonresponse.getJSONArray("weather");
                     JSONObject jsonObjectWeather = jsonArray.getJSONObject(0);
-                    String description = jsonObjectWeather.getString("description");
                     JSONObject jsonObjectMain = jsonresponse.getJSONObject("main");
                     Double temp = jsonObjectMain.getDouble("temp") -273.15;
                     TextView temperature = findViewById(R.id.temperature);
                     temperature.setText(df.format(temp)+" C");
-                    HttpURLConnection urlConnection;
-                    InputStream is;
                     String icon = jsonObjectWeather.getString("icon");
                     Log.d("response", icon);
                     String iconUrl = "https://openweathermap.org/img/w/"+icon+".png";
@@ -149,7 +150,7 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    //because we are using a local database, this method will add some dummy data for two accounts if the database does not exist yet.
     protected void checkDB() {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
@@ -182,7 +183,10 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-
+    // this method is called from onCreate.
+    //opens the database and selects all records from the current user who is logged in.
+    // the results are added to an instance of the data class, which is then added to the eventArray
+    // Event array is then sorted, because entries into the database are not necessarily in chronological order
     protected void getDBData(String id) {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
@@ -235,6 +239,8 @@ public class HomePage extends AppCompatActivity {
 
 
     }
+
+    // this method gets an instance of the event card layout, sets the text parameter, adds it to the scroll view on this page and animates the card.
     public void createEventEntry(String title,String description,String date, String time){
         Log.i("creating event: ", "entry");
         container = findViewById(R.id.nextEventDetails);

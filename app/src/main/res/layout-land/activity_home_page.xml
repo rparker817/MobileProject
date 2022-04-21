@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:contentDescription="background image"
+        android:contentDescription="@string/background_image"
         android:scaleType="center"
         app:srcCompat="@drawable/blue_1634110_1280"
         tools:src="@drawable/blue_1634110_1280" />
@@ -26,7 +26,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:text="Next Event"
+        android:text="@string/next_event"
         android:textColor="#FFFFFF"
         android:textSize="40sp" />
 
@@ -97,7 +97,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="8dp"
-        android:text="View Calendar"
+        android:text="@string/view_calendar"
         app:layout_column="1"
         app:layout_columnSpan="3"
         app:layout_columnWeight="5"
@@ -115,7 +115,7 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="9dp"
-        android:text="New Entry"
+        android:text="@string/new_entry"
         app:layout_column="1"
         app:layout_columnSpan="3"
         app:layout_columnWeight="1"

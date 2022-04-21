@@ -91,15 +91,15 @@ public class ViewPlanner extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         scrollView = (ScrollView)findViewById(R.id.calendarView);
 
+        //Check if there is a saved instance, extract and set the variables if so.
         if (savedInstanceState !=null)
         {
-
 
             Button btn = findViewById(R.id.dateSelect);
             btn.setText(savedInstanceState.getString("savedDate"));
             datePicked = savedInstanceState.getString("savedDate");
             getDBData(current_user);
-            //btn.setText(datePicked);
+
             if(!savedInstanceState.getString("savedDate").equals("Select Date"))
             {
                 populate_filtered_events_list();
@@ -115,10 +115,14 @@ public class ViewPlanner extends AppCompatActivity {
             showAllEvents();
         }
         imgView = findViewById(R.id.Weather);
+
+        //fetch the weather
         getWeatherDetails();
 
     }
 
+
+    //loop over the events array, if the element has a date greater than now, create an event entry on screen
     private void showAllEvents() {
         clear_events();
         Date d = new Date();
@@ -133,6 +137,7 @@ public class ViewPlanner extends AppCompatActivity {
         }
     }
 
+    // this method gets an instance of the event card layout, sets the text parameter, adds it to the scroll view on this page and animates the card.
     public void createEventEntry(String title,String description,String date, String time){
 
         View view = getLayoutInflater().inflate(R.layout.event_card,null);
@@ -143,8 +148,7 @@ public class ViewPlanner extends AppCompatActivity {
         TextView eventDescription = view.findViewById(R.id.textView15);
         eventDescription.setText(description);
         linearLayout.addView(view);
-        //ObjectAnimator animator = null;
-        //ObjectAnimator animator2 = null;
+
         view.setAlpha(0f);
         view.setScaleX(0.0f);
         view.setScaleY(0.0f);
@@ -152,7 +156,7 @@ public class ViewPlanner extends AppCompatActivity {
                 .alpha(1.0f)
                 .scaleX(1.0f)
                 .scaleY(1.0f)
-                .setDuration(1200)
+                .setDuration(800)
                 .setStartDelay(animStartDelay);
         animStartDelay  +=200;
 
@@ -196,13 +200,10 @@ public class ViewPlanner extends AppCompatActivity {
 
     }
 
-
-    public void openHome(View view) {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-    }
-
-
+    // this method is called from onCreate.
+    //opens the database and selects all records from the current user who is logged in.
+    // the results are added to an instance of the data class, which is then added to the eventArray
+    // Event array is then sorted, because entries into the database are not necessarily in chronological order
     protected void getDBData(String id) {
 
         offlineDb = this.openOrCreateDatabase("eventsDatabase", MODE_PRIVATE, null);
@@ -235,6 +236,7 @@ public class ViewPlanner extends AppCompatActivity {
 
     }
 
+
     public void showAllEvents(View view) {
         clear_events();
         Date d = new Date();
@@ -253,7 +255,7 @@ public class ViewPlanner extends AppCompatActivity {
 
 
 
-
+//This method deletes all event cards which have been added to the scroll view. This is to prevent duplicates being added when a filter is applied.
     public void clear_events()
         {
 
@@ -263,6 +265,7 @@ public class ViewPlanner extends AppCompatActivity {
             }
         }
 
+   // This method is used to display events which have the same date as the selected date.
     public void populate_filtered_events_list()
     {
         filterdArray.clear();
@@ -314,24 +317,22 @@ public class ViewPlanner extends AppCompatActivity {
         }
     }
 
+    // fetch the current weather using Openweather API
     public void getWeatherDetails()
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Log.d("response", response);
-                String output = "";
+
                 try {
                     JSONObject jsonresponse = new JSONObject(response);
                     JSONArray jsonArray = jsonresponse.getJSONArray("weather");
                     JSONObject jsonObjectWeather = jsonArray.getJSONObject(0);
-                    String description = jsonObjectWeather.getString("description");
                     JSONObject jsonObjectMain = jsonresponse.getJSONObject("main");
                     Double temp = jsonObjectMain.getDouble("temp") -273.15;
                     TextView temperature = findViewById(R.id.temperature);
                     temperature.setText(df.format(temp)+" C");
-                    HttpURLConnection urlConnection;
-                    InputStream is;
                     String icon = jsonObjectWeather.getString("icon");
                     Log.d("response", icon);
                     String iconUrl = "https://openweathermap.org/img/w/"+icon+".png";
